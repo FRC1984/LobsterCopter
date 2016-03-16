@@ -11,6 +11,7 @@ import java.nio.ByteOrder;
 import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 //import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary.tInstances;
 //import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary.tResourceType;
 //import edu.wpi.first.wpilibj.communication.UsageReporting;
@@ -113,7 +114,7 @@ public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, LiveWind
   /**
    * Constructor.
    */
-  public ADIS16448_IMU() {
+  public ADIS16448_IMU()throws Exception{
     m_spi = new SPI(SPI.Port.kMXP);
     m_spi.setClockRate(1000000);
     m_spi.setMSBFirst();
@@ -128,7 +129,8 @@ public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, LiveWind
       m_spi.free();
       m_spi = null;
       DriverStation.reportError("could not find ADIS16448", false);
-      return;
+      throw new Exception();
+      
     }
 
     // Set IMU internal decimation to 102.4 SPS
